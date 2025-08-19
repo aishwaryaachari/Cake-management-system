@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Delights - Premium Bakery</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --surface: #ffffff;
+            --surface-elevated: #f8fafc;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        
+   body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #fbc2eb 0%, #fda085 100%); /* pink gradient */
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+        
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) { width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 150px; height: 150px; top: 60%; left: 80%; animation-delay: 5s; }
+        .shape:nth-child(3) { width: 80px; height: 80px; top: 80%; left: 20%; animation-delay: 10s; }
+        .shape:nth-child(4) { width: 120px; height: 120px; top: 10%; left: 70%; animation-delay: 15s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(30px) rotate(240deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px;
+            margin: 24px 0;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            background: var(--surface-elevated);
+            padding: 8px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-secondary);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(20px);
+        }
+
+        .panel h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            background: var(--surface-elevated);
+            padding: 8px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-tab {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .filter-tab.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .menu-item {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 0;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .menu-item:hover::before {
+            opacity: 0.05;
+        }
+
+.menu-item-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+}
+
+.menu-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+        .menu-item-content {
+            padding: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-category {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .menu-item .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .menu-item .description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .reviews-section {
+            background: var(--surface-elevated);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .reviews-section h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .review-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .review-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .review-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .order-item {
+            background: var(--surface-elevated);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .order-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .order-id {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .order-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-pending { background: #fee2e2; color: #dc2626; }
+        .status-processing { background: #fef3c7; color: #d97706; }
+        .status-ready { background: #dcfce7; color: #16a34a; }
+        .status-completed { background: #e0e7ff; color: #4f46e5; }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .order-detail {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .order-detail strong {
+            color: var(--text-primary);
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success {
+            background: var(--success-gradient);
+        }
+
+        .btn-danger {
+            background: var(--secondary-gradient);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--surface);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .notification {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s ease;
+        }
+
+        .notification::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-gradient);
+        }
+
+        .notification-content {
+            margin-left: 16px;
+        }
+
+        .notification-message {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .out-of-stock {
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .out-of-stock::after {
+            content: 'Out of Stock';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Sweet Delights</h1>
+            <p>Crafting moments of pure sweetness with artisanal precision</p>
+            <div class="view-toggle">
+                <button class="toggle-btn active" id="customerBtn">Customer Experience</button>
+                <button class="toggle-btn" id="ownerBtn">Owner Dashboard</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalOrders">247</div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeUsers">18</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayRevenue">₹12,450</div>
+                <div class="stat-label">Today's Revenue</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingOrders">5</div>
+                <div class="stat-label">Pending Orders</div>
+            </div>
+        </div>
+
+        <!-- Customer View -->
+        <div id="customerView" class="main-content">
+            <div class="panel">
+                <h2>🍰 Artisan Collection</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterMenu('all')">All Items</button>
+                    <button class="filter-tab" onclick="filterMenu('cakes')">Signature Cakes</button>
+                    <button class="filter-tab" onclick="filterMenu('pastries')">French Pastries</button>
+                    <button class="filter-tab" onclick="filterMenu('candles')">Candle Studio</button>
+                </div>
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Menu items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>📦 My Orders</h2>
+                <div id="customerOrders">
+                    <!-- Customer orders will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Owner View -->
+        <div id="ownerView" class="main-content hidden">
+            <div class="panel">
+                <h2>📊 Order Management</h2>
+                <div id="orderManagement">
+                    <!-- Orders will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>🛠️ Menu Management</h2>
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="productName" placeholder="Enter product name">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="productCategory">
+                        <option value="cakes">Signature Cakes</option>
+                        <option value="pastries">French Pastries</option>
+                        <option value="candles">Candle Studio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price (₹)</label>
+                    <input type="number" id="productPrice" placeholder="Enter price">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="productDescription" placeholder="Enter product description" rows="4"></textarea>
+                </div>
+                <div class="order-actions">
+                    <button class="btn" onclick="addProduct()">Add Product</button>
+                    <button class="btn btn-danger" onclick="removeOutOfStock()">Remove Out of Stock</button>
+                </div>
+<div class="form-group">
+    <label>Image URL</label>
+    <input type="url" id="productImage" placeholder="Enter image URL">
+</div>
+
+            </div>
+        </div>
+
+        <!-- Notifications Panel -->
+        <div class="panel">
+            <h2>🔔 Live Notifications</h2>
+            <div id="notifications">
+                <!-- Notifications will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        let menuItems = [
+            {
+                id: 1,
+                name: 'Velvet Dreams Chocolate Cake',
+                category: 'cakes',
+                price: 850,
+                description: 'Rich Belgian chocolate cake with silky ganache and fresh berries',
+                inStock: true,
+                image: 'https://media.thechalkboardmag.com/wp-content/uploads/2018/02/29225027/slb-feature-1.jpg',
+                reviews: [
+                    { text: 'Absolutely divine! The chocolate is so rich and creamy.', rating: 5, customer: 'Priya M.' },
+                    { text: 'Perfect for celebrations. Everyone loved it!', rating: 5, customer: 'Rajesh K.' }
+                ]
+            },
+            {
+                id: 2,
+                name: 'Parisian Vanilla Clouds',
+                category: 'pastries',
+                price: 120,
+                description: 'Light-as-air vanilla choux pastry with Madagascar vanilla cream',
+                inStock: true,
+                image: 'https://takestwoeggs.com/wp-content/uploads/2021/09/Vanilla-Cream-Puffs-Choux-Au-Craquelin-TakesTwoEggs-Final-SQ.jpg',
+                reviews: [
+                    { text: 'Like eating a cloud! So delicate and flavorful.', rating: 5, customer: 'Meera S.' },
+                    { text: 'The vanilla flavor is incredible. Highly recommended!', rating: 4, customer: 'Arjun P.' }
+                ]
+            },
+            {
+                id: 3,
+                name: 'Mystic Lavender Candles',
+                category: 'candles',
+                price: 450,
+                description: 'Hand-poured soy candles with organic lavender and vanilla notes',
+                inStock: true,
+                image: 'https://i.pinimg.com/736x/fa/be/eb/fabeeb934c1c056112ea8ad4d39ccf57.jpg',
+                reviews: [
+                    { text: 'Creates the most relaxing atmosphere. Love the scent!', rating: 5, customer: 'Sita R.' },
+                    { text: 'Beautiful candles, perfect for gifting.', rating: 4, customer: 'Vikram L.' }
+                ]
+            },
+            {
+                id: 4,
+                name: 'Ruby Red Velvet Supreme',
+                category: 'cakes',
+                price: 950,
+                description: 'Classic red velvet with cream cheese frosting and edible flowers',
+                inStock: false,
+                image: 'https://i.pinimg.com/736x/ac/ac/d5/acacd572b82b60e9c9213ca248720871.jpg',
+                reviews: [
+                    { text: 'The most beautiful cake I\'ve ever seen!', rating: 5, customer: 'Neha T.' },
+                    { text: 'Tastes as good as it looks. Perfection!', rating: 5, customer: 'Amit D.' }
+                ]
+            },
+            {
+                id: 5,
+                name: 'Golden Honey Croissants',
+                category: 'pastries',
+                price: 180,
+                description: 'Buttery French croissants with wildflower honey glaze',
+                inStock: true,
+                image: 'https://thumbs.dreamstime.com/b/classic-french-croissant-butter-honey-white-plate-close-up-320482313.jpg',
+                reviews: [
+                    { text: 'Crispy outside, fluffy inside. Authentic French taste!', rating: 5, customer: 'Ravi N.' },
+                    { text: 'Perfect with morning coffee. Simply delicious!', rating: 4, customer: 'Pooja M.' }
+                ]
+            },
+            {
+                id: 6,
+                name: 'Strawberry Bliss Tart',
+                category: 'pastries',
+                price: 220,
+                description: 'Fresh strawberry tart with vanilla custard and almond crust',
+                inStock: true,
+                image: 'https://i.pinimg.com/736x/b1/2b/ba/b12bbaaabe7e59fd4e99d12c82fa4b78.jpg',
+                reviews: [
+                    { text: 'So fresh and beautiful! Perfect summer treat.', rating: 5, customer: 'Kavya S.' },
+                    { text: 'The strawberries are so sweet and juicy!', rating: 5, customer: 'Rahul J.' }
+                ]
+            },
+            {
+                id: 7,
+                name: 'Enchanted Forest Candle Set',
+                category: 'candles',
+                price: 750,
+                description: 'Trio of pine, eucalyptus, and cedar wood scented candles',
+                inStock: true,
+                image: 'https://i.pinimg.com/736x/87/50/3b/87503bfc526d07f545e261360076b6f7.jpg',
+                reviews: [
+                    { text: 'Brings nature indoors. Amazing quality!', rating: 5, customer: 'Deepak R.' },
+                    { text: 'Long-lasting and beautiful presentation.', rating: 4, customer: 'Anjali K.' }
+                ]
+            },
+            {
+                id: 8,
+                name: 'Lemon Sunshine Cake',
+                category: 'cakes',
+                price: 720,
+                description: 'Zesty lemon cake with citrus buttercream and candied lemon',
+                inStock: true,
+                image: 'https://i.pinimg.com/736x/d5/d4/8e/d5d48ebd7eea4cb0582559379a12bcf4.jpg',
+                reviews: [
+                    { text: 'Bright and refreshing! Perfect balance of sweet and tart.', rating: 5, customer: 'Sunita P.' },
+                    { text: 'The lemon flavor is so vibrant and fresh!', rating: 5, customer: 'Karan M.' }
+                ]
+            }
+        ];
+
+        let orders = [
+            { id: 1, customer: 'Priya Sharma', items: ['Velvet Dreams Chocolate'], total: 850, status: 'pending', time: '2:30 PM' },
+            { id: 2, customer: 'Rajesh Kumar', items: ['Parisian Vanilla Clouds x4'], total: 480, status: 'processing', time: '1:45 PM' },
+            { id: 3, customer: 'Meera Singh', items: ['Mystic Lavender Candles', 'Strawberry Bliss Tart'], total: 670, status: 'ready', time: '12:15 PM' },
+            { id: 4, customer: 'Arjun Patel', items: ['Golden Honey Croissants x3'], total: 540, status: 'completed', time: '11:30 AM' },
+            { id: 5, customer: 'Kavya Reddy', items: ['Lemon Sunshine Cake'], total: 720, status: 'pending', time: '3:15 PM' }
+        ];
+
+        let notifications = [
+            { id: 1, message: 'New order received from Priya Sharma for Velvet Dreams Chocolate', type: 'order', time: '2 minutes ago' },
+            { id: 2, message: 'Ruby Red Velvet Supreme is currently out of stock', type: 'stock', time: '5 minutes ago' },
+            { id: 3, message: 'Order #003 is ready for pickup - Meera Singh', type: 'ready', time: '10 minutes ago' },
+            { id: 4, message: 'New customer review: 5 stars for Golden Honey Croissants', type: 'review', time: '15 minutes ago' }
+        ];
+
+        let currentView = 'customer';
+        let currentFilter = 'all';
+
+        // Initialize the application
+        function init() {
+            renderMenu();
+            renderOrders();
+            renderNotifications();
+            updateStats();
+        }
+
+        // Toggle between customer and owner views
+        document.getElementById('customerBtn').addEventListener('click', function() {
+            switchView('customer');
+        });
+
+        document.getElementById('ownerBtn').addEventListener('click', function() {
+            switchView('owner');
+        });
+
+        function switchView(view) {
+            currentView = view;
+            if (view === 'customer') {
+                document.getElementById('customerView').classList.remove('hidden');
+                document.getElementById('ownerView').classList.add('hidden');
+                document.getElementById('customerBtn').classList.add('active');
+                document.getElementById('ownerBtn').classList.remove('active');
+            } else {
+                document.getElementById('customerView').classList.add('hidden');
+                document.getElementById('ownerView').classList.remove('hidden');
+                document.getElementById('customerBtn').classList.remove('active');
+                document.getElementById('ownerBtn').classList.add('active');
+            }
+        }
+
+        // Render menu items with beautiful design
+        function renderMenu() {
+            const menuGrid = document.getElementById('menuGrid');
+            const filteredItems = currentFilter === 'all' ? menuItems : menuItems.filter(item => item.category === currentFilter);
+            
+            menuGrid.innerHTML = filteredItems.map(item => `
+                <div class="menu-item ${!item.inStock ? 'out-of-stock' : ''}" onclick="orderItem(${item.id})">
+                    <div class="menu-item-image">
+    <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="menu-item-content">
+                        
+</div>
+
+                        <h3>${item.name}</h3>
+                        <div class="price">₹${item.price}</div>
+                        <p class="description">${item.description}</p>
+                        <div class="reviews-section">
+                            <h4>⭐ Customer Reviews</h4>
+                            ${item.reviews.slice(0, 2).map(review => `
+                                <div class="review-item">
+                                    <div class="stars">${'★'.repeat(review.rating)}</div>
+                                    <p class="review-text">"${review.text}" - ${review.customer}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter menu items
+        function filterMenu(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMenu();
+        }
+
+        // Order item with enhanced UX
+        function orderItem(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            if (item && item.inStock) {
+                const newOrder = {
+                    id: orders.length + 1,
+                    customer: 'You',
+                    items: [item.name],
+                    total: item.price,
+                    status: 'pending',
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+                };
+                orders.push(newOrder);
+                
+                // Add notification
+                notifications.unshift({
+                    id: notifications.length + 1,
+                    message: `New order placed for ${item.name}`,
+                    type: 'order',
+                    time: 'Just now'
+                });
+                
+                renderOrders();
+                renderNotifications();
+                updateStats();
+                
+                // Enhanced success feedback
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    font-weight: 500;
+                    animation: slideIn 0.5s ease;
+                `;
+                notification.textContent = `✅ Order placed for ${item.name}!`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        }
+
+        // Render orders with professional styling
+        function renderOrders() {
+            const customerOrders = document.getElementById('customerOrders');
+            const orderManagement = document.getElementById('orderManagement');
+            
+            const ordersHTML = orders.map(order => `
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-id">Order #${order.id.toString().padStart(3, '0')}</div>
+                        <span class="order-status status-${order.status}">${order.status}</span>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-detail">
+                            <strong>Customer:</strong> ${order.customer}
+                        </div>
+                        <div class="order-detail">
+                            <strong>Time:</strong> ${order.time}
+                        </div>
+                        <div class="order-detail">
+                            <strong>Items:</strong> ${order.items.join(', ')}
+                        </div>
+                        <div class="order-detail">
+                            <strong>Total:</strong> ₹${order.total}
+                        </div>
+                    </div>
+                    ${currentView === 'owner' ? `
+                        <div class="order-actions">
+                            <button class="btn" onclick="updateOrderStatus(${order.id}, 'processing')">Start Processing</button>
+                            <button class="btn btn-success" onclick="updateOrderStatus(${order.id}, 'ready')">Mark Ready</button>
+                            <button class="btn btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Complete Order</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+            
+            if (customerOrders) customerOrders.innerHTML = ordersHTML;
+            if (orderManagement) orderManagement.innerHTML = ordersHTML;
+        }
+
+        // Update order status with smooth transitions
+        function updateOrderStatus(orderId, newStatus) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                
+                // Add notification
+                notifications.unshift({
+                    id: notifications.length + 1,
+                    message: `Order #${orderId.toString().padStart(3, '0')} status updated to ${newStatus}`,
+                    type: 'status',
+                    time: 'Just now'
+                });
+                
+                renderOrders();
+                renderNotifications();
+                updateStats();
+                
+                // Success feedback
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    font-weight: 500;
+                    animation: slideIn 0.5s ease;
+                `;
+                notification.textContent = `📋 Order #${orderId.toString().padStart(3, '0')} updated to ${newStatus}`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        }
+
+        // Add new product with validation
+        function addProduct() {
+            const name = document.getElementById('productName').value.trim();
+            const category = document.getElementById('productCategory').value;
+            const price = parseInt(document.getElementById('productPrice').value);
+            const description = document.getElementById('productDescription').value.trim();
+            const image = document.getElementById('productImage').value.trim();
+            if (name && price && description) {
+    const images = {
+        'cakes': [
+            'https://cdn.pixabay.com/photo/2017/01/20/15/06/chocolate-cake-1990325_1280.jpg',
+            'https://cdn.pixabay.com/photo/2015/04/20/13/25/chocolate-731597_1280.jpg',
+            'https://cdn.pixabay.com/photo/2017/06/02/18/24/raspberry-2367014_1280.jpg'
+        ],
+        'pastries': [
+            'https://cdn.pixabay.com/photo/2015/11/03/08/54/pastries-1011245_1280.jpg',
+            'https://cdn.pixabay.com/photo/2017/06/17/18/41/pastry-2410202_1280.jpg',
+            'https://cdn.pixabay.com/photo/2020/01/29/13/17/danish-4802506_1280.jpg'
+        ],
+        'candles': [
+            'https://cdn.pixabay.com/photo/2016/12/06/09/31/advent-1883840_1280.jpg',
+            'https://cdn.pixabay.com/photo/2017/10/27/15/12/candle-2895641_1280.jpg',
+            'https://cdn.pixabay.com/photo/2020/11/01/14/55/candle-5704814_1280.jpg'
+        ]
+    };
+
+    const selectedImageArray = images[category] || [];
+    const randomImage = selectedImageArray[Math.floor(Math.random() * selectedImageArray.length)];
+
+    const newProduct = {
+        id: menuItems.length + 1,
+        name,
+        category,
+        price,
+        description,
+        inStock: true,
+        image: randomImage, // ← now using image URL
+        reviews: []
+    };
+
+    menuItems.push(newProduct);
+    renderMenu();
+
+
+                
+                // Clear form
+                document.getElementById('productName').value = '';
+                document.getElementById('productPrice').value = '';
+                document.getElementById('productDescription').value = '';
+                document.getElementById('productImage').value = '';
+                
+                // Add notification
+                notifications.unshift({
+                    id: notifications.length + 1,
+                    message: `New product "${name}" added to ${category} collection`,
+                    type: 'product',
+                    time: 'Just now'
+                });
+                
+                renderNotifications();
+                
+                // Success feedback
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    font-weight: 500;
+                    animation: slideIn 0.5s ease;
+                `;
+                notification.textContent = `✅ Product "${name}" added successfully!`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            } else {
+                alert('Please fill in all required fields');
+            }
+        }
+
+        // Remove out of stock items
+        function removeOutOfStock() {
+            const removedCount = menuItems.filter(item => !item.inStock).length;
+            menuItems = menuItems.filter(item => item.inStock);
+            renderMenu();
+            
+            notifications.unshift({
+                id: notifications.length + 1,
+                message: `${removedCount} out of stock items removed from menu`,
+                type: 'stock',
+                time: 'Just now'
+            });
+            
+            renderNotifications();
+            
+            // Success feedback
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #f59e0b, #d97706);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 1000;
+                font-weight: 500;
+                animation: slideIn 0.5s ease;
+            `;
+            notification.textContent = `🗑️ Removed ${removedCount} out of stock items`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Render notifications with enhanced design
+        function renderNotifications() {
+            const notificationsDiv = document.getElementById('notifications');
+            notificationsDiv.innerHTML = notifications.map(notification => `
+                <div class="notification">
+                    <div class="notification-content">
+                        <div class="notification-message">${notification.message}</div>
+                        <div class="notification-time">${notification.time}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update statistics with smooth animations
+        function updateStats() {
+            const totalOrdersEl = document.getElementById('totalOrders');
+            const activeUsersEl = document.getElementById('activeUsers');
+            const todayRevenueEl = document.getElementById('todayRevenue');
+            const pendingOrdersEl = document.getElementById('pendingOrders');
+            
+            const newTotalOrders = orders.length;
+            const newActiveUsers = Math.floor(Math.random() * 25) + 10;
+            const newTodayRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+            const newPendingOrders = orders.filter(order => order.status === 'pending').length;
+            
+            // Animate counter updates
+            animateCounter(totalOrdersEl, parseInt(totalOrdersEl.textContent), newTotalOrders);
+            animateCounter(activeUsersEl, parseInt(activeUsersEl.textContent), newActiveUsers);
+            animateCounter(pendingOrdersEl, parseInt(pendingOrdersEl.textContent), newPendingOrders);
+            
+            // Update revenue with formatting
+            todayRevenueEl.textContent = '₹' + newTodayRevenue.toLocaleString('en-IN');
+        }
+
+        // Animate counter with smooth transitions
+        function animateCounter(element, start, end) {
+            const duration = 1000;
+            const startTime = performance.now();
+            
+            function updateCounter(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(start + (end - start) * progress);
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                }
+            }
+            
+            requestAnimationFrame(updateCounter);
+        }
+
+        // Add some dynamic background effects
+        function addDynamicEffects() {
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                setInterval(() => {
+                    shape.style.background = `linear-gradient(${Math.random() * 360}deg, 
+                        rgba(102, 126, 234, 0.1) 0%, 
+                        rgba(118, 75, 162, 0.1) 100%)`;
+                }, 3000 + index * 1000);
+            });
+        }
+
+        // Initialize the application
+        init();
+        addDynamicEffects();
+
+        // Auto-refresh stats every 30 seconds
+        setInterval(updateStats, 30000);
+    </script>
+</body>
+</html>
